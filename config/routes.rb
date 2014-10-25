@@ -1,11 +1,19 @@
 Rails.application.routes.draw do
-  resources :users
 
-  resources :timeslots
+  root 'events#index'
+  resources :users, :timeslots, :windows, :events
 
-  resources :windows
+  match 'windows/:id', to: 'windows#assign_user', via: :post
 
-  resources :events
+
+# need to add nested resources for event/window http://guides.rubyonrails.org/routing.html#nested-resources
+
+#Need to add admin namespace
+      # namespace :admin do
+      #   root to: "admin#index"
+      # end
+
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

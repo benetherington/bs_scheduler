@@ -61,6 +61,18 @@ class WindowsController < ApplicationController
     end
   end
 
+  
+  def assign_user
+    @assignation = Window.find(params[:id]).get_slot
+    if @assignation
+      @assignation.update(user_id: 1)
+      redirect_to events_url, notice: 'You got yourself a slot.'
+    else
+      redirect_to events_url, notice: 'You done fucked up.'
+    end
+  end
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_window
@@ -70,10 +82,6 @@ class WindowsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def window_params
       params.require(:window).permit(:event_id, :start_time, :duration, :capacity)
-    end
-
-    def empty
-      # @window.timeslots.user.all {|user| if user}
     end
 
 end

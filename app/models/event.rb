@@ -9,4 +9,8 @@ class Event < ActiveRecord::Base
   	self.users.count >= self.capacity
   end
 
+  def clear_out
+  	self.timeslots.all.update_all(user_id: nil)
+  end
+
 end

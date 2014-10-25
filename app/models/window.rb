@@ -22,9 +22,10 @@ class Window < ActiveRecord::Base
     end
   end
 
-  def assign_user
-    # target = get_slot
-    get_slot.update(user_id: 1)
-  end
+
+  # def assign_user
+  #   # target = get_slot
+  #   get_slot.update(user_id: 1)
+  # end
 
 end

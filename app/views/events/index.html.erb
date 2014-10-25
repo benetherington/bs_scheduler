@@ -1,3 +1,5 @@
+<p id="notice"><%= notice %></p>
+
 <h1>Listing events</h1>
 
 <table>
@@ -24,7 +26,7 @@
         <td><%= link_to 'Edit', edit_event_path(event) %></td>
         <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
-        <% if event.windows %>
+        <% if event.windows && !event.filled_up %>
           <tr><td>Windows:</td></tr>
             <% event.windows.each do |window| %>
               <tr>
