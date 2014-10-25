@@ -5,4 +5,14 @@ class Window < ActiveRecord::Base
 	# suggested validations:
 	# validates_associated :event
 	# validates :tasters, numerically: { less_than: :capacity }
+
+  def check_capacity
+  	if self.capacity
+  		self.users.count >= self.capacity
+  	else
+  		nil
+  	end
+  end
+
+
 end

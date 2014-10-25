@@ -5,8 +5,8 @@ class Event < ActiveRecord::Base
 	has_many :users, through: :timeslots
 
 
-  def check_capacity(event)
-  	Event.find(event).users.count >= Event.find(event).capacity
+  def check_capacity
+  	self.users.count >= self.capacity
   end
 
 
