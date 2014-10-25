@@ -1,28 +1,13 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A scheduling app. Allows a business to manage a small list of users that can sign up for a limited number of product units and chose their pickup time from a small number of windows, each of which can have their own capacities.
 
-Things you may want to cover:
+In the works. Features will include
+	-remembered default windows settings
+	-user "waves," allowing users who haven't picked up recently to have the first chance at reservations
+	-user email reminders before their pickup window
+	-user feedback email reminders after their pickup
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+Possible features will include
+	-billing records, allowing balances to float between pickups
+	-Square or Stripe API for pre-pays
