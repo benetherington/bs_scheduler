@@ -6,7 +6,8 @@ class Window < ActiveRecord::Base
 	# validates_associated :event
 	# validates :tasters, numerically: { less_than: :capacity }
 
-  def check_capacity
+# answer question "full?" returning nil if window.capacity not set
+  def filled_up
   	if self.capacity
   		self.users.count >= self.capacity
   	else
@@ -14,5 +15,16 @@ class Window < ActiveRecord::Base
   	end
   end
 
+# return available slot, return nil if full
+  def get_slot
+    unless filled_up || Event.find(self.event_id).filled_up
+      self.timeslots.find { |slot| !slot.user }
+    end
+  end
+
+  def assign_user
+    # target = get_slot
+    get_slot.update(user_id: 1)
+  end
 
 end

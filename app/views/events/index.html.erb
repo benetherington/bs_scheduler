@@ -19,11 +19,22 @@
         <td><%= event.end_date %></td>
         <td><%= event.capacity %></td>
         <td><%= event.title %></td>
-        <td><%= event.check_capacity %></td>
+        <td><%= event.filled_up %></td>
         <td><%= link_to 'Show', event %></td>
         <td><%= link_to 'Edit', edit_event_path(event) %></td>
         <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
+        <% if event.windows %>
+          <tr><td>Windows:</td></tr>
+            <% event.windows.each do |window| %>
+              <tr>
+                <td><%= link_to window.id, window %></td>
+                <td>Time: <%= window.start_time %></td>
+                <td><% if window.filled_up %>Sold out<% else %><%= link_to 'I\'ll take it!', window, method: :assign_user %><% end %></td>
+              </tr>
+            <% end %>
+          </tr>
+        <% end %>
     <% end %>
   </tbody>
 </table>
