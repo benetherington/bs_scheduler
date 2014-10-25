@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  start_date: 2014-10-22
+  end_date: 2014-10-22
+  capacity: 1
+  title: MyString
+
+two:
+  start_date: 2014-10-22
+  end_date: 2014-10-22
+  capacity: 1
+  title: MyString

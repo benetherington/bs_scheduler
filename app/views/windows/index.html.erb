@@ -1,0 +1,39 @@
+<h1>Listing windows</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Event</th>
+      <th>Start time</th>
+      <th>Duration</th>
+      <th>Capacity</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @windows.each do |window| %>
+      <tr>
+        <td><%= window.event_id %></td>
+        <td><%= window.start_time %></td>
+        <td><%= window.duration %></td>
+        <td><%= window.capacity %></td>
+        
+        <td><%= link_to 'Show', window %></td>
+        <td><%= link_to 'Edit', edit_window_path(window) %></td>
+        <td><%= link_to 'Destroy', window, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+        <% if window.timeslots %>
+          <tr><td><i>
+            <% window.timeslots.each do |timeslot| %>
+              <%= timeslot.id %>
+            <% end %>
+          </i></td></tr>
+        <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Window', new_window_path %>

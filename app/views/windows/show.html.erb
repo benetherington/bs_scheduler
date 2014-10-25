@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Event:</strong>
+  <%= @window.event_id %>
+</p>
+
+<p>
+  <strong>Start time:</strong>
+  <%= @window.start_time %>
+</p>
+
+<p>
+  <strong>Duration:</strong>
+  <%= @window.duration %>
+</p>
+
+<p>
+  <strong>Capacity:</strong>
+  <%= @window.capacity %>
+</p>
+
+<%= link_to 'Edit', edit_window_path(@window) %> |
+<%= link_to 'Back', windows_path %>

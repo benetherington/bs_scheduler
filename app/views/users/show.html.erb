@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Timestamp:</strong>
+  <%= @user.timestamp_id %>
+</p>
+
+<p>
+  <strong>Last pickup.datetime:</strong>
+  <%= @user.last_pickup.datetime %>
+</p>
+
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>
