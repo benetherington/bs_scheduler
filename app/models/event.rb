@@ -6,7 +6,7 @@ class Event < ActiveRecord::Base
 
 
   def check_capacity(event)
-    :capacity >= Event.find(event).users.count
+  	Event.find(event).users.count >= Event.find(event).capacity
   end
 
 
