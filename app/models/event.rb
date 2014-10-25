@@ -4,6 +4,8 @@ class Event < ActiveRecord::Base
 	has_many :timeslots, through: :windows
 	has_many :users, through: :timeslots
 
+# todo: add validations to all models
+
 # answer question "full?"
   def filled_up
   	self.users.count >= self.capacity

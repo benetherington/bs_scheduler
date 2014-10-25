@@ -1,13 +1,15 @@
 == README
 
-A scheduling app. Allows a business to manage a small list of users that can sign up for a limited number of product units and chose their pickup time from a small number of windows, each of which can have their own capacities.
+A scheduling app. Allows a business to manage a small list of users that can sign up for a limited number of product units and chose their pickup time from a small number of windows, each of which can have their own capacities. As a basic WOP, this project has some basic to dos and some hopefuls, as below.
 
-In the works. Features will include
-	-remembered default windows settings
-	-user "waves," allowing users who haven't picked up recently to have the first chance at reservations
-	-user email reminders before their pickup window
-	-user feedback email reminders after their pickup
+Features will include
+* remembered default pickup windows settings for creator account
+* in-app message system, alerting users to available pickup windows and all-user blast messages
+* email notifications for above message system. Want to encourage direct email, though.
+* user "ranking," allowing some users to have the first chance at reservations, by coupon, elite status or user metrics
+* user email reminders before their pickup window
+* user feedback email reminders after their pickup
 
 Possible features will include
-	-billing records, allowing balances to float between pickups
-	-Square or Stripe API for pre-pays
+* billing records, allowing balances to float between pickups
+* Square or Stripe API for pre-pays

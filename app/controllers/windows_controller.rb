@@ -64,8 +64,8 @@ class WindowsController < ApplicationController
   
   def assign_user
     @assignation = Window.find(params[:id]).get_slot
-    if @assignation
-      @assignation.update(user_id: 1)
+    if @assignation # I don't think this is right. Should be if update.
+      @assignation.update(user_id: 1) 
       redirect_to events_url, notice: 'You got yourself a slot.'
     else
       redirect_to events_url, notice: 'You done fucked up.'
