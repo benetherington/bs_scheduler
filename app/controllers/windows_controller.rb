@@ -62,10 +62,10 @@ class WindowsController < ApplicationController
   end
 
   
+  # POST /windows/:ID
+  # How clunky is this DB success check? There's got to be a DRYer way to do this.
   def assign_user
-    @assignation = Window.find(params[:id]).get_slot
-    if @assignation # I don't think this is right. Should be if update.
-      @assignation.update(user_id: 1) 
+    if !Window.find(params[:id]).filled_up && Window.find(params[:id]).get_slot.update_attributes(user_id: 1)
       redirect_to events_url, notice: 'You got yourself a slot.'
     else
       redirect_to events_url, notice: 'You done fucked up.'
