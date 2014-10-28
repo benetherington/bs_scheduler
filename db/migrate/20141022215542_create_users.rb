@@ -4,7 +4,7 @@ class CreateUsers < ActiveRecord::Migration
       t.integer :timestamp_id
       t.datetime :last_pickup
 
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end

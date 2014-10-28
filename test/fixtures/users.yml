@@ -2,8 +2,8 @@
 
 one:
   timestamp_id: 1
-  last_pickup.datetime: MyString
+  last_pickup: MyString
 
 two:
   timestamp_id: 1
-  last_pickup.datetime: MyString
+  last_pickup: MyString
