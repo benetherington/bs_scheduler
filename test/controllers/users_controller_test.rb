@@ -18,7 +18,7 @@ class UsersControllerTest < ActionController::TestCase
 
   test "should create user" do
     assert_difference('User.count') do
-      post :create, user: { last_pickup.datetime: @user.last_pickup, timestamp_id: @user.timestamp_id }
+      post :create, user: { last_pickup: @user.last_pickup, timestamp_id: @user.timestamp_id }
     end
 
     assert_redirected_to user_path(assigns(:user))
