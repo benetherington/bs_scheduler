@@ -1,9 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  timestamp_id: 1
-  last_pickup: MyString
-
-two:
-  timestamp_id: 1
-  last_pickup: MyString
+michael:
+ name: Michael Example
+ email: michael@example.com
+ password_digest: <%= User.digest('password') %>

@@ -8,7 +8,11 @@ class Event < ActiveRecord::Base
 
 # answer question "full?"
   def filled_up
-  	self.users.count >= self.capacity
+  	# if event.capacity?
+      self.users.count >= self.capacity
+    # else
+    #   false
+    # end
   end
 
   def clear_out

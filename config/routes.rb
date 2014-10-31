@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
 
-  root 'events#index'
-  resources :users, :timeslots, :windows, :events
-
-  match 'windows/:id', to: 'windows#assign_user', via: :post
-
+  root       'events#index'
+  post        'windows/:id',  to: 'windows#assign_user'
+  get         'login',        to: 'sessions#new'
+  post        'login',        to: 'sessions#create'
+  delete      'logout',        to: 'sessions#destroy'
+  resources   :users, :timeslots, :windows, :events
 
 # need to add nested resources for event/window http://guides.rubyonrails.org/routing.html#nested-resources
 

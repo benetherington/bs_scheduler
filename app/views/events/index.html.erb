@@ -21,7 +21,7 @@
         <td><%= event.end_date %></td>
         <td><%= event.capacity %></td>
         <td><%= event.title %></td>
-        <td><%= event.filled_up %></td>
+        <td><%= event.capacity ? event.filled_up : false %></td>
         <td><%= link_to 'Show', event %></td>
         <td><%= link_to 'Edit', edit_event_path(event) %></td>
         <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
