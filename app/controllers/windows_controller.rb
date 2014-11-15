@@ -65,7 +65,7 @@ class WindowsController < ApplicationController
   # POST /windows/:ID
   # How clunky is this DB success check? There's got to be a DRYer way to do this.
   def assign_user
-    if !Window.find(params[:id]).filled_up && Window.find(params[:id]).get_slot.update_attributes(user_id: 1)
+    if !Window.find(params[:id]).filled_up && Window.find(params[:id]).get_slot.update_attributes(user_id: current_user.id)
       redirect_to events_url, notice: 'You got yourself a slot.'
     else
       redirect_to events_url, notice: 'You done fucked up.'

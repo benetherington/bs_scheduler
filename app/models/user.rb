@@ -27,10 +27,8 @@ class User < ActiveRecord::Base
 	end
 
 	def remember
-		logger.debug "model here. performing remember"
 		self.remember_token = User.new_token
 		update_attribute(:remember_digest, User.digest(remember_token))
-		logger.debug "model here. Look what I remembered: #{User.digest(remember_token).inspect.class}"
 	end
 
 	def forget
