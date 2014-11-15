@@ -28,6 +28,8 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
+        # todo: add auto-login contingent on remember-me
+        # log_in @user
         format.html { redirect_to @user, notice: 'User was successfully created.' }
         format.json { render :show, status: :created, location: @user }
       else
