@@ -18,11 +18,9 @@ module SessionsHelper
 
 	# Returns the user first by session then by remember token cookie
 	def current_user
-		# current_user ||= User.find_by(id: session[:user_id])
-
-		if (user_id = session[:user_id])
+		if (user_id = session[:user_id]) 						# look for session cookie first
 			current_user ||= User.find_by(id: session[:user_id])
-		elsif (user_id = cookies.signed[:user_id])
+		elsif (user_id = cookies.signed[:user_id])				# look for remember me cookie next
 			user = User.find_by(id: user_id)
 			if user && user.authenticated?(cookies[:remember_token])
 				log_in user
