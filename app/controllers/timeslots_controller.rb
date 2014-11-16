@@ -26,28 +26,20 @@ class TimeslotsController < ApplicationController
   def create
     @timeslot = Timeslot.new(timeslot_params)
 
-    respond_to do |format|
-      if @timeslot.save
-        format.html { redirect_to @timeslot, notice: 'Timeslot was successfully created.' }
-        format.json { render :show, status: :created, location: @timeslot }
-      else
-        format.html { render :new }
-        format.json { render json: @timeslot.errors, status: :unprocessable_entity }
-      end
+    if @timeslot.save
+      redirect_to @timeslot, notice: 'Timeslot was successfully created.'
+    else
+      render :new
     end
   end
 
   # PATCH/PUT /timeslots/1
   # PATCH/PUT /timeslots/1.json
   def update
-    respond_to do |format|
-      if @timeslot.update(timeslot_params)
-        format.html { redirect_to @timeslot, notice: 'Timeslot was successfully updated.' }
-        format.json { render :show, status: :ok, location: @timeslot }
-      else
-        format.html { render :edit }
-        format.json { render json: @timeslot.errors, status: :unprocessable_entity }
-      end
+    if @timeslot.update(timeslot_params)
+      redirect_to @timeslot, notice: 'Timeslot was successfully updated.'
+    else
+      render :edit
     end
   end
 
@@ -55,10 +47,7 @@ class TimeslotsController < ApplicationController
   # DELETE /timeslots/1.json
   def destroy
     @timeslot.destroy
-    respond_to do |format|
-      format.html { redirect_to timeslots_url, notice: 'Timeslot was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to timeslots_url, notice: 'Timeslot was successfully destroyed.'
   end
 
   private

@@ -26,28 +26,20 @@ class WindowsController < ApplicationController
   def create
     @window = Window.new(window_params)
 
-    respond_to do |format|
-      if @window.save
-        format.html { redirect_to @window, notice: 'Window was successfully created.' }
-        format.json { render :show, status: :created, location: @window }
-      else
-        format.html { render :new }
-        format.json { render json: @window.errors, status: :unprocessable_entity }
-      end
+    if @window.save
+      redirect_to @window, notice: 'Window was successfully created.'
+    else
+      render :new
     end
   end
 
   # PATCH/PUT /windows/1
   # PATCH/PUT /windows/1.json
   def update
-    respond_to do |format|
-      if @window.update(window_params)
-        format.html { redirect_to @window, notice: 'Window was successfully updated.' }
-        format.json { render :show, status: :ok, location: @window }
-      else
-        format.html { render :edit }
-        format.json { render json: @window.errors, status: :unprocessable_entity }
-      end
+    if @window.update(window_params)
+      redirect_to @window, notice: 'Window was successfully updated.'
+    else
+      render :edit
     end
   end
 
@@ -55,10 +47,7 @@ class WindowsController < ApplicationController
   # DELETE /windows/1.json
   def destroy
     @window.destroy
-    respond_to do |format|
-      format.html { redirect_to windows_url, notice: 'Window was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to windows_url, notice: 'Window was successfully destroyed.'
   end
 
   
