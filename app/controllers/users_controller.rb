@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :logged_in_user, only: [:edit, :update]
 
   # GET /users
   # GET /users.json
@@ -34,35 +34,39 @@ class UsersController < ApplicationController
       redirect_to @user, notice: 'User was successfully created.'
     else
       render :new
-      render json: @user.errors, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /users/1
-  # PATCH/PUT /users/1.json
   def update
+    @user = User.find(params[:id])
     if @user.update(user_params)
-      redirect_to @user, notice: 'User was successfully updated.'
+      redirect_to @user, notice: 'Profile updated.'
     else
       render :edit
     end
   end
 
   # DELETE /users/1
-  # DELETE /users/1.json
   def destroy
     @user.destroy
     redirect_to users_url, notice: 'User was successfully destroyed.'
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+
+    def logged_in_user
+      unless logged_in?
+        redirect_to login_url, notice: "You need to login to do that."
+      end
+    end
+
     def set_user
       @user = User.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name, :email, :password, :password_confirmation)
+      params.require(:user).permit(:id, :name, :email, :password, :password_confirmation)
     end
 end

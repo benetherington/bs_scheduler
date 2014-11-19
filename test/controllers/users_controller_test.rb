@@ -28,21 +28,21 @@ class UsersControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should get edit" do
-    get :edit, id: @user
-    assert_response :success
-  end
+  # test "should get edit" do
+  #   get :edit, id: @user
+  #   assert_response :success
+  # end
 
   test "should update user" do
     patch :update, id: @user, user: { last_pickup: @user.last_pickup, timestamp_id: @user.timestamp_id }
     # assert_redirected_to user_path(assigns(:user))
   end
 
-  test "should destroy user" do
-    assert_difference('User.count', -1) do
-      delete :destroy, id: @user
-    end
-
-    assert_redirected_to users_path
-  end
+  # test "should destroy user" do
+  #   assert_difference('User.count', -1) do
+  #     delete :destroy, id: @user
+  #   end
+  #   assert_redirected_to users_path
+  # end
+  
 end
