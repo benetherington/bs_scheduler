@@ -1,5 +1,8 @@
 class UsersController < ApplicationController
+
+  # need to eventually update so that users can't view other users' profiles. This isn't a goddamned social network.
   before_action :logged_in_user, only: [:edit, :update]
+  before_action :correct_user,   only: [:edit, :update]
 
   # GET /users
   # GET /users.json
@@ -20,7 +23,6 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
-    @user = User.find(params[:id])
   end
 
   # POST /users
@@ -39,7 +41,6 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1
   def update
-    @user = User.find(params[:id])
     if @user.update(user_params)
       redirect_to @user, notice: 'Profile updated.'
     else
@@ -59,6 +60,17 @@ class UsersController < ApplicationController
       unless logged_in?
         redirect_to login_url, notice: "You need to login to do that."
       end
+    end
+
+    def correct_user
+      @user = User.find(params[:id])
+
+      # puts "@user"
+      # puts @user.inspect
+      # puts "current"
+      # puts current_user.inspect
+
+      redirect_to(root_url) unless current_user?(@user)
     end
 
     def set_user

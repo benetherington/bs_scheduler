@@ -4,6 +4,7 @@ module SessionsHelper
 		session[:user_id] = user.id
 	end
 
+	# Remember user in longterm cookies
 	def remember(user)
 		user.remember
 		cookies.permanent.signed[:user_id] = user.id
@@ -14,6 +15,10 @@ module SessionsHelper
 		user.forget
 		cookies.delete(:user_id)
 		cookies.delete(:remember_token)
+	end
+
+	def current_user?(user)
+		user == current_user
 	end
 
 	# Returns the user first by session then by remember token cookie
