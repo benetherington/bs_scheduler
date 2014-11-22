@@ -76,7 +76,7 @@ class UsersControllerTest < ActionController::TestCase
 end
 
 
-# Listing 9.22:
+
 
 
 
