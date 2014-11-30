@@ -15,6 +15,8 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 
 gem 'spring',        group: :development
 
+gem 'faker', '1.4.2', group: :development
+
 # Use unicorn as the app server
 # gem 'unicorn'
 

@@ -26,17 +26,16 @@
         <td><%= link_to 'Edit', edit_event_path(event) %></td>
         <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
-        <% if event.windows && !event.filled_up %>
-          <tr><td>Windows:</td></tr>
-            <% event.windows.each do |window| %>
-              <tr>
-                <td><%= link_to window.id, window %></td>
-                <td>Time: <%= window.start_time %></td>
-                <td><% if window.filled_up %>Sold out<% else %><%= link_to 'I\'ll take it!', window, method: :assign_user %><% end %></td>
-              </tr>
-            <% end %>
+      <% if event.windows && !event.filled_up %>
+        <tr><td>Windows:</td></tr>
+        <% event.windows.each do |window| %>
+          <tr>
+            <td><%= link_to window.id, window %></td>
+            <td>Time: <%= window.start_time %></td>
+            <td><% if window.filled_up %>Sold out<% else %><%= link_to 'I\'ll take it!', window, method: :assign_user %><% end %></td>
           </tr>
         <% end %>
+      <% end %>
     <% end %>
   </tbody>
 </table>

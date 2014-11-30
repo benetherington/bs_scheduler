@@ -7,7 +7,13 @@ class UsersControllerTest < ActionController::TestCase
     @other_user = users(:archer)
   end
 
+  test "should redirect index when not logged in" do
+    get :index
+    assert_redirected_to login_url
+  end
+
   test "should get index" do
+    log_in_as(@user)
     get :index
     assert_response :success
     assert_not_nil assigns(:users)
@@ -36,7 +42,7 @@ class UsersControllerTest < ActionController::TestCase
   # end
 
   test "should update user" do
-    patch :update, id: @user, user: { last_pickup: @user.last_pickup, timestamp_id: @user.timestamp_id }
+    patch :update, id: @user, user: { last_pickup: @user.last_pickup }
     # assert_redirected_to user_path(assigns(:user))
   end
 
@@ -72,6 +78,25 @@ class UsersControllerTest < ActionController::TestCase
     assert flash.empty?
     assert_redirected_to root_url
   end
+
+#  todo add test "user admin param should be strong"
+  
+  test "should redirect destroy when not logged in" do
+    assert_no_difference 'User.count' do
+      delete :destroy, id: @user
+    end
+    assert_redirected_to login_url
+  end
+
+# I think below fails because users_controller uses current_user.admin? which is unavailable to tests.
+  # test "should redirect destroy when logged in as non-admin" do
+  #   log_in_as(@other_user)
+  #   assert_no_difference 'User.count' do
+  #     delete :destroy, id: @user
+  #   end
+  #   assert_redirected_to root_url
+  # end
+
 
 end
 

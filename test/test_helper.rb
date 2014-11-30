@@ -22,6 +22,10 @@ class ActiveSupport::TestCase
   	end
   end
 
+  def current_user_as
+    session[:user_id]
+  end
+
   	private
 
   	# returns true inside an integration test

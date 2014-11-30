@@ -1,14 +1,15 @@
 class UsersController < ApplicationController
 
   # need to eventually update so that users can't view other users' profiles. This isn't a goddamned social network.
-  before_action :logged_in_user, only: [:edit, :update]
+  before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
   before_action :correct_user,   only: [:edit, :update]
+  before_action :admin_user,     only: [:destroy]
 
   # GET /users
   # GET /users.json
   def index
     @users = User.all
-  end
+  end  
 
   # GET /users/1
   # GET /users/1.json
@@ -50,7 +51,7 @@ class UsersController < ApplicationController
 
   # DELETE /users/1
   def destroy
-    @user.destroy
+    User.find(params[:id]).destroy
     redirect_to users_url, notice: 'User was successfully destroyed.'
   end
 
@@ -65,13 +66,12 @@ class UsersController < ApplicationController
 
     def correct_user
       @user = User.find(params[:id])
-
-      # puts "@user"
-      # puts @user.inspect
-      # puts "current"
-      # puts current_user.inspect
-
       redirect_to(root_url) unless current_user?(@user)
+    end
+
+    # confirms an admin user
+    def admin_user
+      redirect_to(root_url) unless current_user.admin?
     end
 
     def set_user
