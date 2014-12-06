@@ -32,9 +32,8 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      # todo: add auto-login contingent on remember-me
-      # log_in @user
-      redirect_to @user, notice: 'User was successfully created.'
+      @user.send_activation_email
+      redirect_to root_url, notice: 'Check your email for an activation code.'
     else
       render :new
     end

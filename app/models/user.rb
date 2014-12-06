@@ -1,44 +1,74 @@
 class User < ActiveRecord::Base
-	#ensure emails in db are same format
-	before_save { self.email = email.downcase }
 
-	validates :name, presence: true, length: { maximum: 50 }
-	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-	validates :email, presence: true,
-						length: { maximum: 255 },
-						format: { with: VALID_EMAIL_REGEX },
-						uniqueness: { case_sensitive: false }
-	validates :password, length: { minimum: 6 }, allow_blank: true
+    before_save :downcase_email #ensure emails in db are same format
+    before_create :create_activation_digest
+    attr_accessor :remember_token, :activation_token
 
-	has_many :timeslots
-	has_secure_password
 
-	attr_accessor :remember_token
+    validates :name, presence: true, length: { maximum: 50 }
+    VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+    validates :email, presence: true,
+                        length: { maximum: 255 },
+                        format: { with: VALID_EMAIL_REGEX },
+                        uniqueness: { case_sensitive: false }
+    validates :password, length: { minimum: 6 }, allow_blank: true
 
-	# returns hash digest of the given string.
-	def User.digest(string)
-		cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
-		BCrypt::Password.create(string, cost: cost)
-	end
+    has_many :timeslots
+    has_secure_password
 
-	# returns random token, used for "remember me".
-	def User.new_token
-		SecureRandom.urlsafe_base64
-	end
 
-	def remember
-		self.remember_token = User.new_token
-		update_attribute(:remember_digest, User.digest(remember_token))
-	end
 
-	def forget
-		update_attribute(:remember_digest, nil)
-	end
+    # returns hash digest of the given string.
+    def User.digest(string)
+        cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
+        BCrypt::Password.create(string, cost: cost)
+    end
 
-	def authenticated?(remember_token)
-		return false if remember_digest.nil?
-		BCrypt::Password.new(remember_digest).is_password?(remember_token)
-	end
+    # returns random token, used for "remember me".
+    def User.new_token
+        SecureRandom.urlsafe_base64
+    end
+
+    def remember
+        self.remember_token = User.new_token
+        update_attribute(:remember_digest, User.digest(remember_token))
+    end
+
+    def forget
+        update_attribute(:remember_digest, nil)
+    end
+
+    # returns true if the given token matches the stored digest (attribute defining the correct digest)
+    def authenticated?(attribute, token)
+        digest = send("#{attribute}_digest")
+        return false if digest.nil?
+        BCrypt::Password.new(digest).is_password?(token)
+    end
+
+    # activates an account
+    def activate
+        update_attributes(activated: true)
+        update_attributes(activated_at: Time.zone.now)
+    end
+
+    # sends activation email
+    def send_activation_email
+        UserMailer.account_activation(self).deliver
+    end
+
+    private
+
+    #converts email to all lowercase
+    def downcase_email
+        self.email = email.downcase
+    end
+
+    # creates and assigns the activation token and digest
+    def create_activation_digest
+        self.activation_token = User.new_token
+        self.activation_digest = User.digest(activation_token)
+    end
+
 end
 
 
