@@ -55,7 +55,7 @@ class PasswordResetsTest < ActionDispatch::IntegrationTest
 end
 
 
-# Mismatched password and confirmation don't fail. Fix that, then  fix line 43 if neccessary, then move on from Listing 10.52:
+
 
 
 
