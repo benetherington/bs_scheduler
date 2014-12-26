@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
 
     before_save :downcase_email #ensure emails in db are same format
     before_create :create_activation_digest
-    attr_accessor :remember_token, :activation_token
+    attr_accessor :remember_token, :activation_token, :reset_token
 
 
     validates :name, presence: true, length: { maximum: 50 }
@@ -54,6 +54,22 @@ class User < ActiveRecord::Base
     # sends activation email
     def send_activation_email
         UserMailer.account_activation(self).deliver
+    end
+
+    # sets the password reset attributes
+    def create_reset_digest
+        self.reset_token = User.new_token
+        update_attributes(reset_digest: User.digest(reset_token))
+        update_attributes(reset_sent_at: Time.zone.now)
+    end
+
+    # sends password reset email
+    def send_password_reset_email
+        UserMailer.password_reset(self).deliver
+    end
+
+    def password_reset_expired?
+        reset_sent_at < 2.hours.ago
     end
 
     private
